@@ -1,0 +1,30 @@
+.product-recommendations {
+  display: block;
+  z-index:0;
+  position: relative;
+}
+
+.product-recommendations:not(.product-recommendations--loaded) {
+  padding: 0;
+  margin: 0;
+}
+
+.product-recommendations__heading {
+  margin: 0;
+  margin-bottom: 3rem;
+}
+.product-recommendations__heading {
+  margin: 0;
+  margin-bottom: 3rem;
+}
+@media screen and (min-width: 768px) {
+  .product-recommendations__heading {
+  font-size: 3.6rem;
+  }
+}
+
+
+.product-recommendations .swiper{ padding: 3rem; }
+.product-recommendations .swiper .swiper-button-next, 
+.product-recommendations .swiper .swiper-button-prev{ top: 35%; background: var(--gradient-base-accent-2); width: 40px; height: 40px; color: var(--gradient-base-background-1); }
+.product-recommendations .swiper-button-next:after, .product-recommendations .swiper-button-prev:after{     transform: scale(0.5); }
