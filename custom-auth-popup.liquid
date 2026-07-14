@@ -1,0 +1,160 @@
+<style>
+  #custom-auth-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(5px);
+    z-index: 999999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .custom-auth-modal {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    color: #5b2b2b; /* Soft Burgundy */
+    width: 90%;
+    max-width: 450px;
+    border-radius: 12px;
+    padding: 40px 30px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .custom-auth-close {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #5b2b2b;
+    transition: opacity 0.3s;
+  }
+  .custom-auth-close:hover {
+    opacity: 0.7;
+  }
+  .custom-auth-modal h2 { 
+    color: #5b2b2b; 
+    margin-top: 0; 
+    margin-bottom: 25px;
+    font-family: 'Klee One', serif;
+    font-size: 2rem;
+  }
+  .custom-auth-modal input:not([type="submit"]) {
+    width: 100%; 
+    padding: 12px 0; 
+    margin-bottom: 20px;
+    border: none; 
+    border-bottom: 1px solid #ccc;
+    background: transparent;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    color: #333;
+    transition: border-color 0.3s;
+  }
+  .custom-auth-modal input:not([type="submit"]):focus {
+    outline: none;
+    border-bottom-color: #5b2b2b;
+  }
+  .custom-auth-modal .btn-submit {
+    background-color: #5b2b2b; 
+    color: #fff;
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 6px;
+    padding: 14px;
+    width: 100%;
+    margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .custom-auth-modal .btn-submit:hover { 
+    background-color: #4a2323; 
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(91, 43, 43, 0.2);
+  }
+  .auth-toggle { 
+    font-size: 14px; 
+    cursor: pointer; 
+    text-decoration: underline; 
+    margin-top: 15px; 
+    display: block; 
+    color: #777;
+    transition: color 0.3s;
+  }
+  .auth-toggle:hover {
+    color: #5b2b2b;
+  }
+  #custom-login-form { display: none; }
+</style>
+
+{% unless customer %}
+<div id="custom-auth-overlay">
+  <div class="custom-auth-modal">
+    <span class="custom-auth-close" id="customAuthClose">&times;</span>
+    
+    <!-- Registration Form -->
+    <div id="custom-register-form">
+      <h2>Join Silvorn</h2>
+      {% form 'create_customer' %}
+        <input type="hidden" name="return_to" value="/">
+        <input type="text" name="customer[first_name]" placeholder="First Name" required>
+        <input type="text" name="customer[last_name]" placeholder="Last Name" required>
+        <input type="email" name="customer[email]" placeholder="Email Address" required>
+        <!-- Saving Phone as a customer note for promotional use -->
+        <input type="tel" name="customer[note][Phone]" placeholder="Phone Number (WhatsApp)" required>
+        <input type="password" name="customer[password]" placeholder="Password" required>
+        <input type="submit" value="Register" class="btn-submit">
+      {% endform %}
+      <span class="auth-toggle" id="showLogin">Already have an account? Login</span>
+      <span class="auth-toggle" id="guestLogin">Continue as Guest</span>
+    </div>
+
+    <!-- Login Form -->
+    <div id="custom-login-form">
+      <h2>Welcome Back</h2>
+      {% form 'customer_login' %}
+        <input type="hidden" name="return_to" value="/">
+        <input type="email" name="customer[email]" placeholder="Email Address" required>
+        <input type="password" name="customer[password]" placeholder="Password" required>
+        <input type="submit" value="Login" class="btn-submit">
+      {% endform %}
+      <span class="auth-toggle" id="showRegister">New here? Create an account</span>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Check if it's the user's first time visiting this session
+    if (!sessionStorage.getItem('silvornSessionVisit')) {
+      setTimeout(function() {
+        document.getElementById('custom-auth-overlay').style.display = 'flex';
+      }, 800); // Pops up within 1 second
+    }
+
+    // Close logic
+    function closeModal() {
+      document.getElementById('custom-auth-overlay').style.display = 'none';
+      sessionStorage.setItem('silvornSessionVisit', 'true');
+    }
+
+    document.getElementById('customAuthClose').addEventListener('click', closeModal);
+    document.getElementById('guestLogin').addEventListener('click', closeModal);
+
+    // Toggle between Login and Register
+    document.getElementById('showLogin').addEventListener('click', function() {
+      document.getElementById('custom-register-form').style.display = 'none';
+      document.getElementById('custom-login-form').style.display = 'block';
+    });
+    document.getElementById('showRegister').addEventListener('click', function() {
+      document.getElementById('custom-login-form').style.display = 'none';
+      document.getElementById('custom-register-form').style.display = 'block';
+    });
+  });
+</script>
+{% endunless %}
