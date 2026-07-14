@@ -1,0 +1,127 @@
+{% doc %}
+  @prompt
+    Add a custom CSS snippet to remove/override any blur filter effect applied to the hero banner/slideshow images on mobile view. Target the slideshow and hero banner image elements and set filter: none and backdrop-filter: none to ensure no blur is applied on mobile devices (max-width: 749px).
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-mobile-blur-remover-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 749px) {
+    .slideshow img,
+    .slideshow__media,
+    .slideshow .media,
+    .slideshow picture,
+    .slideshow video,
+    .hero-banner img,
+    .hero-banner__media,
+    .hero-banner .media,
+    .hero-banner picture,
+    .hero-banner video,
+    .banner img,
+    .banner__media,
+    .banner .media,
+    .banner picture,
+    .banner video,
+    [class*="slideshow"] img,
+    [class*="slideshow"] .media,
+    [class*="hero"] img,
+    [class*="hero"] .media,
+    [class*="banner"] img,
+    [class*="banner"] .media {
+      filter: none !important;
+      backdrop-filter: none !important;
+      -webkit-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    .slideshow::before,
+    .slideshow::after,
+    .hero-banner::before,
+    .hero-banner::after,
+    .banner::before,
+    .banner::after,
+    [class*="slideshow"]::before,
+    [class*="slideshow"]::after,
+    [class*="hero"]::before,
+    [class*="hero"]::after,
+    [class*="banner"]::before,
+    [class*="banner"]::after {
+      filter: none !important;
+      backdrop-filter: none !important;
+      -webkit-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-mobile-blur-remover-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.show_info_message %}
+    <div style="
+      padding: 12px 16px;
+      background-color: {{ block.settings.info_bg_color }};
+      color: {{ block.settings.info_text_color }};
+      font-size: 13px;
+      text-align: center;
+      border-radius: 4px;
+      margin: 10px auto;
+      max-width: 600px;
+    ">
+      {{ block.settings.info_message }}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Mobile blur remover",
+  "tag": null,
+  "class": "mobile-blur-fix",
+  "settings": [
+    {
+      "type": "header",
+      "content": "CSS override settings"
+    },
+    {
+      "type": "paragraph",
+      "content": "This block removes blur filter effects from hero banners and slideshow images on mobile devices (screens up to 749px wide). The CSS targets common slideshow and banner classes automatically."
+    },
+    {
+      "type": "header",
+      "content": "Optional info message"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_info_message",
+      "label": "Show info message",
+      "default": false
+    },
+    {
+      "type": "richtext",
+      "id": "info_message",
+      "label": "Message",
+      "default": "<p>Mobile image clarity optimized</p>"
+    },
+    {
+      "type": "color",
+      "id": "info_bg_color",
+      "label": "Message background",
+      "default": "#f5f0ea"
+    },
+    {
+      "type": "color",
+      "id": "info_text_color",
+      "label": "Message text color",
+      "default": "#3b0b0b"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mobile blur remover"
+    }
+  ]
+}
+{% endschema %}

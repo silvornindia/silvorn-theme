@@ -1,0 +1,98 @@
+{% doc %}
+  @prompt
+    In the product grid/collection page, hide the "Sold Out" badge/label/overlay that appears on sold out product cards using CSS. Target common sold out badge classes such as .badge--sold-out, .sold-out, .product-badge.sold-out, .card__badge and set display:none or visibility:hidden.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-hide-sold-out-badge-{{ ai_gen_id }} .badge--sold-out,
+  .ai-hide-sold-out-badge-{{ ai_gen_id }} .sold-out,
+  .ai-hide-sold-out-badge-{{ ai_gen_id }} .product-badge.sold-out,
+  .ai-hide-sold-out-badge-{{ ai_gen_id }} .card__badge,
+  .ai-hide-sold-out-badge-{{ ai_gen_id }} .product-card__badge--sold-out,
+  .ai-hide-sold-out-badge-{{ ai_gen_id }} [data-sold-out="true"] .card__badge,
+  .ai-hide-sold-out-badge-{{ ai_gen_id }} .product-card.sold-out .card__badge,
+  .ai-hide-sold-out-badge-{{ ai_gen_id }} .card__badge.sold-out,
+  .ai-hide-sold-out-badge-{{ ai_gen_id }} .product__badge,
+  .ai-hide-sold-out-badge-{{ ai_gen_id }} [class*="sold-out"],
+  .ai-hide-sold-out-badge-{{ ai_gen_id }} .badge.badge--soldout,
+  .ai-hide-sold-out-badge-{{ ai_gen_id }} .product__badge--soldout,
+  .ai-hide-sold-out-badge-{{ ai_gen_id }} .card-badge--sold-out,
+  .ai-hide-sold-out-badge-{{ ai_gen_id }} .grid-product__tag--sold-out,
+  .ai-hide-sold-out-badge-{{ ai_gen_id }} .product-item__badge--sold-out {
+    {% if block.settings.hide_method == 'display' %}
+      display: none !important;
+    {% else %}
+      visibility: hidden !important;
+      opacity: 0 !important;
+    {% endif %}
+  }
+
+  {% if block.settings.apply_globally %}
+    .badge--sold-out,
+    .sold-out,
+    .product-badge.sold-out,
+    .card__badge,
+    .product-card__badge--sold-out,
+    [data-sold-out="true"] .card__badge,
+    .product-card.sold-out .card__badge,
+    .card__badge.sold-out,
+    .product__badge,
+    [class*="sold-out"],
+    .badge.badge--soldout,
+    .product__badge--soldout,
+    .card-badge--sold-out,
+    .grid-product__tag--sold-out,
+    .product-item__badge--sold-out {
+      {% if block.settings.hide_method == 'display' %}
+        display: none !important;
+      {% else %}
+        visibility: hidden !important;
+        opacity: 0 !important;
+      {% endif %}
+    }
+  {% endif %}
+{% endstyle %}
+
+<div class="ai-hide-sold-out-badge-{{ ai_gen_id }}" {{ block.shopify_attributes }}></div>
+
+{% schema %}
+{
+  "name": "Hide sold out badge",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "This block hides 'Sold Out' badges on product cards in collection and grid pages using CSS."
+    },
+    {
+      "type": "select",
+      "id": "hide_method",
+      "label": "Hide method",
+      "options": [
+        {
+          "value": "display",
+          "label": "Display none"
+        },
+        {
+          "value": "visibility",
+          "label": "Visibility hidden"
+        }
+      ],
+      "default": "display",
+      "info": "Choose how to hide the badge. Display none removes it completely, visibility hidden keeps the space."
+    },
+    {
+      "type": "checkbox",
+      "id": "apply_globally",
+      "label": "Apply globally",
+      "default": true,
+      "info": "Apply to all product cards site-wide, not just within this block's section"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hide sold out badge"
+    }
+  ]
+}
+{% endschema %}

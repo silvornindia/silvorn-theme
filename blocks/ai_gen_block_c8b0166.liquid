@@ -1,0 +1,71 @@
+{% doc %}
+  @prompt
+    Remove the white/light overlay wash effect from the hero banner slideshow images on mobile view. The overlay opacity is already set to 0 in theme settings but a white wash effect is still appearing over the slideshow images. Add custom CSS to make the slideshow slide backgrounds fully transparent so the product images display clearly without any white or light color overlay washing them out, specifically targeting the slideshow section with id "template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7".
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  @media screen and (max-width: 749px) {
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .slideshow__slide::before,
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .slideshow__slide::after,
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .slideshow__media::before,
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .slideshow__media::after,
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .banner__media::before,
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .banner__media::after,
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .slideshow__text-wrapper::before,
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .slideshow__text-wrapper::after {
+      background: transparent !important;
+      opacity: 0 !important;
+      display: none !important;
+    }
+
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .slideshow__slide,
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .slideshow__media,
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .banner__media,
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .banner__box {
+      background: transparent !important;
+    }
+
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .slideshow__slide .overlay,
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .banner__media .overlay,
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .slideshow__media .overlay {
+      background: transparent !important;
+      opacity: 0 !important;
+      display: none !important;
+    }
+
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .gradient,
+    #template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7 .slideshow__slide .gradient {
+      background: transparent !important;
+      opacity: 0 !important;
+    }
+  }
+
+  .ai-slideshow-overlay-fix-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+{% endstyle %}
+
+<div class="ai-slideshow-overlay-fix-{{ ai_gen_id }}" {{ block.shopify_attributes }}></div>
+
+{% schema %}
+{
+  "name": "Remove slideshow overlay",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Mobile overlay fix"
+    },
+    {
+      "type": "paragraph",
+      "content": "This block removes the white/light overlay effect from the hero banner slideshow on mobile view for section ID: template--21865945301027__bf059b5f-860d-4006-9cd7-fc4b068e7cc7"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Remove slideshow overlay"
+    }
+  ]
+}
+{% endschema %}
