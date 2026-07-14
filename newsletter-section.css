@@ -1,0 +1,72 @@
+.newsletter__wrapper {
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.newsletter__wrapper > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.newsletter__wrapper > * + * {
+  margin-top: 2rem;
+}
+
+.newsletter__wrapper > * + .newsletter-form {
+  margin-top: 3rem;
+}
+
+.newsletter__subheading {
+  max-width: 70rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletter__wrapper .newsletter-form__field-wrapper {
+  max-width: 75rem;
+}
+
+.newsletter-form__field-wrapper .newsletter-form__message {
+  margin-top: 1.5rem;
+}
+
+.newsletter__button {
+  margin-top: 3rem;
+  width: fit-content;
+}
+
+@media screen and (min-width: 750px) {
+  .newsletter__button {
+    flex-shrink: 0;
+    margin: 0 0 0 1rem;
+  }
+}
+
+@media screen and (min-width:1200px) and (max-width:1540px){
+  .newsletter__wrapper {
+    margin: 0 2rem;
+}
+}
+@media screen and (min-width:1024px) and (max-width:1199px){
+  .newsletter__wrapper {
+    margin: 0 2rem;
+}
+}
+@media screen and (min-width:750px) and (max-width:1023px){
+  .newsletter__wrapper {
+    margin: 0 2rem;
+}
+}
+@media screen and (min-width:567px) and (max-width:749px){
+  .newsletter__wrapper {
+    margin: 0 2rem;
+}
+}
+@media screen and (min-width:320px) and (max-width:566px){
+  .newsletter__wrapper {
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+    margin: 0 2rem;
+}
+}
+
